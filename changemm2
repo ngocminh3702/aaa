@@ -1,0 +1,48 @@
+_G.WHlink = ""
+repeat task.wait() print("wait1") until game:IsLoaded() and game.Players.LocalPlayer
+wait(1)
+local playerGui = game:GetService("Players").LocalPlayer.PlayerGui
+repeat task.wait() until not playerGui:FindFirstChild("Loading")
+local Player = game:GetService("Players").LocalPlayer
+local filename = Player.Name .. ".txt"
+local HttpService = game:GetService("HttpService")
+repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+local Data =
+{
+    ["embeds"]= {
+        {            
+            ["title"]= "Congratulation.! đã đủ token";
+            ["color"]= tonumber(0x7269da);
+            
+            ["fields"]= {
+                {
+                    ["name"]= "Player Name",
+                    ["value"]= "```"..game.Players.LocalPlayer.Name.. "```",
+                    ["inline"]= true
+                },
+                {
+                    ["name"]= "Snow Token",
+                    ["value"]= "```"..tostring(Player.PlayerGui.CrossPlatform.Christmas2024.Container.EventFrames.BattlePass.Info.Tokens.Container.TextLabel.Text).. "```",
+                    ["inline"]= true
+                },
+            }              
+        }
+    }
+}
+
+Request = http_request or request or HttpPost or syn.request
+local Final1 = {Url = _G.WHlink , Body = HttpService:JSONEncode(Data), Method = "POST", Headers = {["Content-Type"]="application/json"}}
+
+while true do
+    local current_snow = Player.PlayerGui.CrossPlatform.Christmas2024.Container.EventFrames.BattlePass.Info.Tokens.Container.TextLabel.Text
+    current_snow = string.gsub(current_snow, ",", "")
+    current_snow = tonumber(current_snow)
+    if current_snow >= 98000 then
+        writefile(filename, "Yummytool")
+        Request(Final1)
+        break
+        else
+        print("not enough token")
+    end
+    task.wait(300)
+end
